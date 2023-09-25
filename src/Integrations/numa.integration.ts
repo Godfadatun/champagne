@@ -1,4 +1,5 @@
-import axios from 'axios';
+/* eslint-disable no-console */
+import axios, { AxiosInstance } from 'axios';
 import { URLSearchParams } from 'url';
 import { theResponse } from '../utils/interface';
 import { NUMA_AUTH_URL, NUMA_BASE_URL, NUMA_CLIENTID, NUMA_CLIENT_SECRET } from '../utils/secrets';
@@ -14,7 +15,13 @@ const headers: {
   'Source-Id': 'SWAGGER-API-CALL',
 };
 
-const Integration = {
+interface IntegrationInterface {
+  axiosInstance: AxiosInstance;
+  authorizeNumaAPIs(): Promise<void>;
+  listReservations(requestData: any): Promise<theResponse>;
+  listGuests(requestData: any): Promise<theResponse>;
+}
+const Integration: IntegrationInterface = {
   axiosInstance: axios.create({
     baseURL: NUMA_AUTH_URL,
     headers,
@@ -62,18 +69,6 @@ const Integration = {
       throw new FailedDependencyError('Numa-Core-API:listGuests', error);
     }
   },
-
-  // todo: List Guests
-  // todo: Create Guest
-  // todo: List Reservation
-  // todo: Create Reservation
-  // todo: Create a Wine Service for the Reservation
-  // todo: Create a Wine Selection
-
-  // Tasks
-  // todo: How many bottles each property needs/per week
-  // todo: Each VIP Guests should have a champagne bottle waiting
-  // todo: Endpoint accepts date range, returns number of VIP reservations/property for date range
 };
 
 export default Integration;

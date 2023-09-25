@@ -1,5 +1,4 @@
 import AsyncHandler from '../utils/asyncHandler';
-import { theResponse } from '../utils/interface';
 import NumaIntegration from '../Integrations/numa.integration';
 import Utils from '../utils/utils';
 
@@ -20,7 +19,7 @@ const Service: ServiceInterface = {
     if (to) payload['arrival[lte]'] = to;
 
     const reservation = await NumaIntegration.listReservations(payload);
-    const { success, message, data } = reservation;
+    const { message, data } = reservation;
     const VIPReservations = Utils.filterAndCreateObject(data.data, 'vip', false, 'propertyId', 'arrival');
     return AsyncHandler.sendObjectResponse(message || 'Reservations retrieved successfully', VIPReservations);
   },

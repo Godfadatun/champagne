@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
